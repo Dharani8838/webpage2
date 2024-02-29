@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignUp-Page</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url("backimg.jpg");
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      border: 1px solid #888;
+      width: 50%;
+      align-self: center;
+      border-radius: 8px;
+      margin: 0%;
+      padding: 20px;
+    }
+
+    .form-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .form-section {
+      width: 48%;
+      margin-bottom: 15px;
+    }
+
+    /* Style form inputs */
+    input[type="text"],
+    input[type="password"],
+    input[type="number"],
+    textarea {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .clearfix {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .cancelbtn,
+    .signupbtn {
+      margin-right: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <form class="modal-content">
+    <div class="container">
+      <h1>Sign Up</h1>
+      <hr />
+      <div style="display: flex;">
+        <div style="width: 50%;">
+          <label><b>Username</b></label>
+          <input id="username" type="text" placeholder="Enter Username" name="username" required />
+        </div>
+        <div style="width: 50%;">
+          <label for="email"><b>Email</b></label>
+          <input type="text" placeholder="Enter Your Email" id="email" required />
+        </div>
+      </div>
+      <div style="display: flex;">
+        <div style="width: 50%;">
+          <label for="number"><b>Phone Number</b></label>
+          <input type="number" placeholder="Enter Your Phone Number" id="Number" maxlength="10" required />
+        </div>
+        <div style="width: 50%;">
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" id="psw" required />
+        </div>
+      </div>
+      <div style="display: flex;">
+        <div style="width: 50%;">
+          <p><b>Gender</b></p>
+          <div style=" width: 100%; display: inline-flex; margin: 5px 0 22px 0;">
+            <label class="radio-inline">
+              <input type="radio" name="optradio" value="Male">Male
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio" value="Female">Female
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio" value="Others">Others
+            </label>
+          </div>
+        </div>
+        <div style="width: 50%;">
+          <label for="psw-repeat"><b>Confirm Password</b></label>
+          <input type="password" placeholder="Confirm Password" id="Con-pass" required />
+        </div>
+      </div>
+      <div style="display: flex;">
+        <div style="width: 50%;">
+          <label><b>Address</b></label>
+          <textarea id="address" rows="5" cols="50"></textarea>
+        </div>
+      </div>
+    </div>
+    <label>
+      <input type="checkbox" checked="checked" name="remember" style="margin-bottom: 15px" />
+      Remember me
+    </label>
+    <div class="clearfix">
+      <button type="button" class="cancelbtn" onclick="cancelForm();">Cancel</button>
+      <button type="button" class="signupbtn" onclick="registerForm();">Sign Up</button>
+    </div>
+    <script>
+      function registerForm() {
+        var username = document.getElementById("username").value;
+        var Conpassword = document.getElementById("Con-pass").value;
+        var password = document.getElementById("psw").value;
+        var Number = document.getElementById("Number").value;
+        var email = document.getElementById("email").value;
+        var address = document.getElementById("address").value;
+        var gender = document.querySelector('input[name="optradio"]:checked');
+        var selectedGender = gender ? gender.value : 'Not specified';
+
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (username === "" || password === "" || Conpassword === "" || Number === "" || email === "" || address === "") {
+          alert("Please enter valid credentials.");
+          return false;
+        }
+        if (Number.length !== 10 || isNaN(parseInt(Number))) {
+          alert("Please enter a valid 10-digit phone number.");
+          return false;
+        }
+        if (!emailRegex.test(email)) {
+          alert("Please enter a valid email address.");
+          return false;
+        }
+        if (password !== Conpassword) {
+          alert("Password and Confirm Password do not match.");
+          return false;
+        }
+        if (password.length < 6) {
+          alert("Password must be at least 6 characters.");
+          return false;
+        }
+
+        var pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a5', putOnlyUsedFonts: true });
+        pdf.text(20, 20, 'Username: ' + username + '\nEmail: ' + email + '\nPhone Number: ' + Number + '\nAddress: ' + address + '\nGender: ' + selectedGender);
+        pdf.save(`${username}.pdf`);
+
+        alert("Sign Up successful!");
+        window.location.href = "login.html";
+        return true;
+      }
+
+      function cancelForm() {
+        document.getElementById("username").value = "";
+        document.getElementById("Con-pass").value = "";
+        document.getElementById("psw").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("Number").value = "";
+        document.getElementById("address").value = "";
+
+        var radioButtons = document.getElementsByName("optradio");
+        for (var i = 0; i < radioButtons.length; i++) {
+          radioButtons[i].checked = false;
+        }
+      }
+    </script>
+  </form>
+</body>
+
+</html>
