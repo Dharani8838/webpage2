@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url("backimg.jpg");
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 0;
+        }
+
+        .contact-info {
+            max-width: 400px;
+            background-color: #fff;
+            padding: 100px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .back-button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+
+        }
+
+        .contact-icons i {
+            font-size: 20px;
+            margin: 0 10px;
+            color: inherit
+        }
+
+        .contact-info p {
+            font-size: 20px;
+            margin: 20px 0;
+            text-align: start;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contact-info">
+        <h1>Contact Us</h1>
+        <p><i class="fas fa-envelope"></i> Email: dharanivel32@gmail.com</p>
+        <p><i class="fas fa-phone"></i> Phone: +91 8838723293</p>
+        <p><i class="fas fa-map-marker-alt"></i> Address: 3/40, Mal Street, Vellore</p>
+        <div class="back-button" onclick="goBack()">Back</div>
+        <div class="contact-icons">
+            <a href="https://www.facebook.com/your_facebook_page" target="_blank">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/your_instagram_page" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://twitter.com/your_twitter_page" target="_blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+    function goBack() { 
+        window.history.back(); 
+    } 
+    </script>
+
+</body >
+
+</html >
